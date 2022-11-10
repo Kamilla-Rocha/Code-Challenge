@@ -1,35 +1,38 @@
 package br.digitalRepublic.model;
 
-
-
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-
-
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
-@Table(name="tb_transacao")
+@Table(name = "tb_transacao")
 public class Transacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank
-	private String tipo;
-	
-	@NotBlank
-	private  BigDecimal valor;
-	
-	
+
+	@Enumerated(EnumType.ORDINAL)
+	private TipoDeTransacao tipo;
+
+	private BigDecimal valor;
+
+	@Column(name = "destinatario_id")
+	@JsonProperty("destinatario_id")
+	private Integer destinatarioId;
+
+	@Column(name = "remetente_id")
+	@JsonProperty("remetente_id")
+	private Integer remetenteId;
 
 	public Long getId() {
 		return id;
@@ -39,11 +42,11 @@ public class Transacao {
 		this.id = id;
 	}
 
-	public String getTipo() {
+	public TipoDeTransacao getTipo() {
 		return tipo;
 	}
 
-	public void setTipo(String tipo) {
+	public void setTipo(TipoDeTransacao tipo) {
 		this.tipo = tipo;
 	}
 
@@ -54,6 +57,25 @@ public class Transacao {
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
 	}
-	
 
+	public Integer getDestinatarioId() {
+		return destinatarioId;
+	}
+
+	public void setDestinatarioId(Integer destinatarioId) {
+		this.destinatarioId = destinatarioId;
+	}
+
+
+	public Integer getRemetenteId() {
+		return remetenteId;
+	}
+
+
+	public void setRemetenteId(Integer remetenteId) {
+		this.remetenteId = remetenteId;
+	}
+
+	
+	
 }
